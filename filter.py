@@ -1,0 +1,37 @@
+# -*- coding: cp1251 -*-
+
+# простейший случай - ф-ци€ возр. лог. результат в зависимости от значени€
+##def f(x): 
+#    return (x%2 != 0)  and  (x%3 != 0)
+
+#нормальна€ практика - использование л€мбда ф-ции дл€ оценки значени€
+f = lambda x:(x%2!=0) and (x%3!=0)
+print filter(f, range(2,25) )
+
+#тестовый список, содержащий значени€ разных типов
+lst = [1, u"1","a", 0xFFFFFFFF, 0.112, [1,2,3], {1:"12"}, (1,2,3), bytearray(), xrange(0,1), True ]
+
+#простейший случай ф-ции оценки значени€ - если значение целое
+f = lambda x: isinstance(x, int )
+
+#фильтруем список по условию, поставленному в л€бда-функции - все короткие целые
+print filter(f, lst )
+
+#делаем универсальную л€мбда-функцию использующую карринг
+f = lambda y: lambda x: isinstance(x,y)
+
+#вызываем л€мбда функцию, передава€ первой "матрешке" тип значени€ фильтрации,
+#втора€ ф-ци€ (внутренн€€ "матрешка") вызываетс€ функций filter(  при обходе списка
+print filter( f(int),       lst )
+print filter( f(long),      lst )
+print filter( f(float),     lst )
+print filter( f(str),       lst )
+print filter( f(unicode),   lst )
+print filter( f(bool),      lst )
+print filter( f(list),      lst )
+print filter( f(dict),      lst )
+print filter( f(tuple),     lst )
+print filter( f(bytearray), lst )
+print filter( f(xrange),    lst )
+print filter( f(object),    lst )
+
